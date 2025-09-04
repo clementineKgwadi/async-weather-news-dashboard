@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "callback": "ts-node -r dotenv/config src/Callback/callbackVersion.ts",
+  "build": "tsc"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/clementineKgwadi/async-weather-news-dashboard.git"
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/clementineKgwadi/async-weather-news-dashboard#readme",
   "dependencies": {
     "@types/node": "^24.3.0",
+    "dotenv": "^17.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
