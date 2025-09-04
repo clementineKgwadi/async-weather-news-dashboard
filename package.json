@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
   "callback": "ts-node -r dotenv/config src/Callback/callbackVersion.ts",
+  "promises": "ts-node -r dotenv/config src/PromiseVersion/promiseVersion.ts",
   "build": "tsc"
 },
   "repository": {
