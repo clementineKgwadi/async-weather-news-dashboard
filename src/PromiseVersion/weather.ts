@@ -14,15 +14,21 @@ function fetchData(url: string): Promise<any> {
         let data = "";
         res.on("data", (chunk) => (data += chunk));
         res.on("end", () => {
+
           try {
             const parsed = JSON.parse(data);
+
+            if(parsed.cod && parsed.cod !== 200){
+              reject (new Error(parsed.message || "API returned an error"));
+            } else{
             resolve(parsed);
-          } catch (err) {
-            reject(err);
+            }
+          } catch {
+            reject(new Error("Invalid JSON response"));
           }
         });
       })
-      .on("error", (err) => reject(err));
+      .on("error", (err) => reject(new Error("Network error:" + err.message)));
   });
 }
 
@@ -43,5 +49,8 @@ Temp: ${temp}°C, ${description}
 Feels like: ${feelsLike}°C
 Humidity: ${humidity}%
 Wind speed: ${windSpeed} km/h`;
+  })
+  .catch((err) => {
+    return Promise.reject(new Error ("Failed to fetch weather." + err.message))
   });
 }

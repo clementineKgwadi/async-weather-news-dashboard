@@ -16,15 +16,23 @@ fetchWeatherByCity(city)
   .then((news) => {
     console.log("---NEWS REPORT---", "\n", news);
   })
-  .catch((err) => console.error("Error:", err));
+  .catch((err) => {
+    console.error("Application error.", (err as Error).message)
+  });
   
   Promise.all([fetchWeatherByCity(city), fetchNews()]).then(([weather, news]) =>{
     console.log("\n---ALL RESULTS USING Promise.all()---\n");
     console.log(weather, "\n");
     console.log(news, "\n")
-  }).catch((err) => console.error("Error in Promise.all:", err.message));
+  })
+  .catch((err) => {
+    console.error("Application error", (err as Error).message)
+  });
 
   Promise.race([fetchWeatherByCity(city), fetchNews()]).then((raceResult) =>{
    console.log("---RACE RESULT USING Promise.race()---", "\n");
    console.log(raceResult, "\n")
-  }).catch((err) => console.error("Error in Promise.race:", err.message));
+  })
+  .catch((err) => {
+    console.error("Application error.", (err as Error).message)
+  });

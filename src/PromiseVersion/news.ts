@@ -8,14 +8,16 @@ function fetchData(url: string): Promise<any> {
         res.on("data", (chunk) => (data += chunk));
         res.on("end", () => {
           try {
+
             const parsed = JSON.parse(data);
             resolve(parsed);
-          } catch (err) {
-            reject(err);
+          } 
+          catch (err) {
+            reject(new Error("Invalid JSON response"));
           }
         });
       })
-      .on("error", (err) => reject(err));
+      .on("error", (err) => reject(new Error("Network error" + err.message)));
   });
 }
 
@@ -29,5 +31,8 @@ export function fetchNews(): Promise<string> {
       .join("\n");
 
     return headlines;
-  });
+  })
+  .catch((err) =>{
+    return Promise.reject(new Error("Failed to fetch news." + err.message))
+  })
 }
