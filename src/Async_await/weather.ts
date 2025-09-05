@@ -18,13 +18,18 @@ function fetchData(url: string): Promise<any> {
         res.on("end", () => {
           try {
             const parsed = JSON.parse(data);
-            resolve(parsed);
+
+            if (parsed.cod && parsed.cod !== 200) {
+              reject(new Error(parsed.message || "API returned an error"));
+            } else {
+              resolve(parsed);
+            }
           } catch (err) {
-            reject(err); 
+            reject(new Error("Invalid JSON response"));
           }
         });
       })
-      .on("error", (err) => reject(err)); 
+      .on("error", (err) => reject(new Error("Network error: " + err.message)));
   });
 }
 
@@ -47,7 +52,7 @@ export async function fetchWeatherByCity(city: string): Promise<string> {
           Feels like: ${feelsLike}°C
           Humidity: ${humidity}%
           Wind speed: ${windSpeed} km/h`;
-  } catch (err: any) {
-    throw new Error("Failed to fetch weather: " + (err?.message || err));
+  } catch (err) {
+    throw new Error("Failed to fetch weather: " + (err as Error).message);
   }
 }

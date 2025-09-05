@@ -15,11 +15,11 @@ function fetchData(url: string): Promise<any> {
             resolve(parsed);
           } 
           catch (err) {
-            reject(err);
+            reject(new Error("Invalid JSON response"));
           }
         });
       })
-      .on("error", (err) => reject(err)); 
+      .on("error", (err) => reject(new Error("Network error: "+ err.message))); 
   });
 }
 
@@ -36,6 +36,6 @@ export async function fetchNews(): Promise<string> {
 
     return headlines;
   } catch (err) {
-    throw new Error("Failed to fetch news: " + (err as any).message);
+    throw new Error("Failed to fetch news: " + (err as Error).message);
   }
 }

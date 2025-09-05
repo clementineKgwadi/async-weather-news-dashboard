@@ -33,8 +33,8 @@ async function display_Weather_News(city: string) {
     console.log("---RACE RESULT USING Promise.race()---\n");
     console.log(raceResult, "\n");
 
-  } catch (err: any) {
-    console.error("Error:", err?.message || err);
+  } catch (err) {
+    console.error("Application error.", (err as Error).message);
   }
 }
 
