@@ -6,6 +6,7 @@
   "scripts": {
   "callback": "ts-node -r dotenv/config src/Callback/callbackVersion.ts",
   "promises": "ts-node -r dotenv/config src/PromiseVersion/promiseVersion.ts",
+   "async-await": "ts-node -r dotenv/config src/Async_await/asyncAwaitVersion.ts",
   "build": "tsc"
 },
   "repository": {
