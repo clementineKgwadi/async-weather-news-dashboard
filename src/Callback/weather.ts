@@ -16,15 +16,22 @@ function fetchData(
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
+
         try {
           const parsed = JSON.parse(data);
+
+          if(parsed.cod && parsed.cod !== 200){
+            callback(new Error(parsed.message || "API retruned an error"))
+          } 
+          else{
           callback(null, parsed);
-        } catch (err) {
-          callback(err as Error);
+          }
+        } catch {
+          callback(new Error("Invalid JSON response"));
         }
       });
     })
-    .on("error", (err) => callback(err));
+    .on("error", (err) => callback(new Error("Network error" + err.message)));
 }
 
 export function fetchWeatherByCity(

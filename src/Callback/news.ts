@@ -9,16 +9,17 @@ function fetchData(
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
+
         try {
           const parsed = JSON.parse(data);
           callback(null, parsed);
           
         } catch (err) {
-          callback(err as Error);
+          callback(new Error("Invalid JSON response"));
         }
       });
     })
-    .on("error", (err) => callback(err));
+    .on("error", (err) => callback(new Error("Network error: " + err.message )));
 }
 
 export function fetchNews(
@@ -28,10 +29,10 @@ export function fetchNews(
 
   fetchData(url, (err, data) => {
 
-    if (err) return callback(err);
+    if (err) return callback(new Error("Failed to fetch news" + err.message));
 
     const headlines = data.posts
-      .slice(0, 3)
+      .slice(0, 4)
       .map((post: any, index: number) => `${index + 1}. ${post.title}`)
       .join("\n");
 
