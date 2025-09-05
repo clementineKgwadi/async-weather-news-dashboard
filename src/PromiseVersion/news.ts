@@ -24,7 +24,7 @@ export function fetchNews(): Promise<string> {
 
   return fetchData(url).then((data) => {
     const headlines = data.posts
-      .slice(0, 3)
+      .slice(0, 4)
       .map((post: any, index: number) => `${index + 1}. ${post.title}`)
       .join("\n");
 
