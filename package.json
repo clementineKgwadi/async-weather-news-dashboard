@@ -1,0 +1,32 @@
+{
+  "name": "async-weather-news-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "callback": "ts-node -r dotenv/config src/Callback/callbackVersion.ts",
+  "promises": "ts-node -r dotenv/config src/PromiseVersion/promiseVersion.ts",
+   "async-await": "ts-node -r dotenv/config src/Async_await/asyncAwaitVersion.ts",
+  "build": "tsc"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clementineKgwadi/async-weather-news-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clementineKgwadi/async-weather-news-dashboard/issues"
+  },
+  "homepage": "https://github.com/clementineKgwadi/async-weather-news-dashboard#readme",
+  "dependencies": {
+    "@types/node": "^24.3.0",
+    "dotenv": "^17.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
